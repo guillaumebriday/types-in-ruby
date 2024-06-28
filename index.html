@@ -43,32 +43,47 @@
       <h2>Typesception</h2>
 
       <ul class="list-point-right">
-        <li class="fragment">Static typing</li>
-        <li class="fragment">Structural typing</li>
-        <li class="fragment">Dynamic typing</li>
+        <li class="fragment">Static & Dynamic typing</li>
+        <li class="fragment">Nominal & Structural typing</li>
       </ul>
 
       <aside class="notes">
         <ul>
-          <li>C, C++, Java, Go, Rust</li>
-          <li>TypeScript</li>
-          <li>PHP, JavaScript, Ruby</li>
+          <li>C, C++, Java, Go, Rust (Static & Nominal)</li>
+          <li>TypeScript (static but Structural)</li>
+          <li>PHP, JavaScript, Ruby (Dynamic and/or nominal)</li>
         </ul>
       </aside>
     </section>
-
 
     <section>
       <h2>Static typing</h2>
 
       <pre>
-  <code class="language-javascript" data-trim>
+  <code class="language-java" data-trim>
+class Person {
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Person person = new Person("Alice", 30);
+        System.out.println("Hello, " + person.getName());
+    }
+}
   </code>
 </pre>
     </section>
-
-
-
 
 
 
@@ -137,3 +152,4 @@
 <!--https://morningcoffee.io/interfaces-in-ruby.html-->
 <!--https://phptoruby.io/advanced/type_hinting_and_duck_typing/-->
 <!--https://thephp.website/en/issue/php-type-system/-->
+<!--https://github.com/soutaro/rbs-inline-->

@@ -12,7 +12,7 @@ class Cat {
   }
 }
 
-function speak(Dog|Cat $animal): void {
+function speak(Dog $animal): void {
   $animal->speak();
 }
 
