@@ -42,16 +42,23 @@
     <section>
       <h2>Typesception</h2>
 
+      <p>
+        <small class="fragment">
+          Different type of types.
+        </small>
+      </p>
+
       <ul class="list-point-right">
         <li class="fragment">Static & Dynamic typing</li>
         <li class="fragment">Nominal & Structural typing</li>
+        <li class="fragment">Gradual typing</li>
       </ul>
 
       <aside class="notes">
         <ul>
           <li>C, C++, Java, Go, Rust (Static & Nominal)</li>
           <li>TypeScript (static but Structural)</li>
-          <li>PHP, JavaScript, Ruby (Dynamic and/or nominal)</li>
+          <li>PHP, JavaScript, Ruby, Python (Dynamic and/or nominal and Gradual typing)</li>
         </ul>
       </aside>
     </section>
@@ -59,9 +66,15 @@
     <section>
       <h2>Static typing</h2>
 
-      <pre>
+      <small class="fragment">
+        Types are checked at compile time.
+      </small>
+
+      <pre class="fragment">
   <code class="language-java" data-trim>
-class Person {
+// src/main/java/io/core/person/Person.java
+
+public class Person {
     private String name;
     private int age;
 
@@ -78,9 +91,89 @@ class Person {
 public class Main {
     public static void main(String[] args) {
         Person person = new Person("Alice", 30);
-        System.out.println("Hello, " + person.getName());
     }
 }
+  </code>
+</pre>
+    </section>
+
+    <section>
+      <h2>Dynamic typing</h2>
+
+      <small class="fragment">
+        Types are checked at runtime.
+      </small>
+
+      <pre class="fragment">
+  <code class="language-ruby" data-trim>
+# person.rb
+
+class Person
+  def initialize (name, age)
+    @name = name
+    @age = age
+  end
+end
+
+person = new Person("Alice", 30)
+  </code>
+</pre>
+    </section>
+
+    <section>
+      <h2>Nominal typing</h2>
+
+      <small class="fragment">
+        Type is defined by its name.
+      </small>
+
+      <pre class="fragment">
+  <code class="language-php" data-trim>
+class Dog {
+  public function speak() {
+    return "whoaf";
+  }
+}
+
+class Cat {
+  ...
+}
+
+function speak(Dog $animal): void {
+  echo $animal->speak();
+}
+
+speak(new Dog); ✅ //=> "whoaf"
+speak(new Cat); ❌ Uncaught TypeError: speak(): Argument #1 ($animal) must be of type Dog, Cat given.
+  </code>
+</pre>
+    </section>
+
+    <section>
+      <h2>Structural typing</h2>
+
+      <small class="fragment">
+        Type is defined by its name.
+      </small>
+
+      <pre class="fragment">
+  <code class="language-typescript" data-trim>
+class Dog {
+  speak () {
+    return 'whoaf'
+  }
+}
+
+class Cat {
+  ...
+}
+
+function speak (animal: Dog) {
+  console.log(animal.speak())
+}
+
+speak(new Dog) ✅ //=> "whoaf"
+speak(new Cat) ✅ //=> "miaou"
   </code>
 </pre>
     </section>
@@ -113,8 +206,8 @@ public class Main {
 
       <ul class="list-point-right">
         <li>
-          <a href="https://types-in-ruby.netlify.app">
-            https://types-in-ruby.netlify.app
+          <a href="https://types-in-ruby.guillaumebriday.fr">
+            https://types-in-ruby.guillaumebriday.fr
           </a>
         </li>
       </ul>

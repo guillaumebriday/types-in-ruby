@@ -22,6 +22,4 @@ speak(new Cat);
 
 
 
-
-
 echo "\n";
