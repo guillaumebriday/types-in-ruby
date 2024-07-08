@@ -45,6 +45,7 @@
       <ul class="list-point-right">
         <li class="fragment">Better IDE integration</li>
         <li class="fragment">Give information to other developers</li>
+        <li class="fragment">Documentation for the code</li>
         <li class="fragment">Can find bugs during development</li>
         <li class="fragment">etc.</li>
       </ul>
@@ -62,7 +63,7 @@
       <p>
         <a
         target="_blank"
-        href="https://www.typescriptlang.org/play/?#code/C4TwDgpgBAygrgMwQSwB4BVzQLxQEQA2yAdhAIYBOeUAPvgLYD2xwAFgSNXXiORR3gBQghHGIBjYMmZQA5hGAAFCsnHQAFAGdEKVAC5YOtJkgBKA8Tj0ARhApQA3oKhRkCKFqOoo2X-iKklHimjs4uUBQKcBTEUACcAHRxcWEAvlAQBJrQbh7aSGg+fnhMLOycIU7hEVExUAAcSSkuqcIukcDRsQCMicmCrcLizJqMBBAJBIyy6vJKKmrqhCR8waZAA">
+        href="https://www.typescriptlang.org/play/?#code/C4TwDgpgBAygrgMwQSwB4BVzQLxQEQA2yAdhAIYBOeUAPvgLYD2xwAFgSNXXiORR3gBQghHGIBjYMmZQA5hGAAFCsnHQAFAGdEKVAC5YOtJkgBKA8Tj0ARhApQA3oKhRkCKFqOoo2X-iKklHimjs4uUBQKcBTEUACcAHRxcWEAvlAQBJrQbh7aSGg+fnhMLOycIU7hEVExUAAcSSkuqcIukcDRsQDsTYKtwuLMmowEEAkEjLLq8koqauqEJHzBpkA">
           👉 Try it!
         </a>
       </p>
@@ -362,7 +363,7 @@ end
       <h2>Duck typing in real life 🦆</h2>
 
       <p>
-        Enforce with modules
+        Enforce it with modules
       </p>
 
       <pre class="fragment">
@@ -396,6 +397,192 @@ end
 </pre>
     </section>
 
+    <section>
+      <h2>Duck typing in real life 🦆</h2>
+
+      <pre class="fragment">
+  <code class="language-ruby" data-trim>
+def import_state_badge(import)
+  variant = {
+    enqueued: :secondary,
+    processing: :info,
+    error: :danger,
+    completed: :success
+  }[import.state.to_sym]
+
+  badge_tag(value: import.state.titleize, variant: variant)
+end
+
+<%= import_state_badge(@import) %>
+<%= import_state_badge(@budget) %>
+<%= import_state_badge("completed") %>
+  </code>
+</pre>
+    </section>
+
+    <section>
+      <h2>The problem with Duck Typing 🦆</h2>
+
+      <ul class="list-point-right">
+        <li class="fragment">No autocompletion</li>
+        <li class="fragment">Types are checked at runtime</li>
+        <li class="fragment">Hard to find occurrences</li>
+        <li class="fragment">No hint of what you can do or not</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>The problem with Duck Typing 🦆</h2>
+
+      <img src="img/meh.gif" alt="meh">
+    </section>
+
+    <section>
+      <h2>Solution in Ruby</h2>
+
+      <small>Basically <code>.d.ts</code> files for Ruby.</small>
+
+      <p>
+        <img src="img/rbs.png" alt="rbs">
+      </p>
+    </section>
+
+    <section>
+      <h2>RBS in action</h2>
+
+      <small>
+        You ruby code.
+      </small>
+
+      <pre>
+  <code class="language-ruby" data-trim>
+# working_day_calculator.rb
+
+require 'date'
+
+class WorkingDayCalculator
+  attr_accessor :period_start, :period_end
+  attr_reader :days_off
+
+  def initialize
+    @days_off = []
+  end
+
+  def add_day_off(date)
+    @days_off << date
+  end
+
+  def calculate_working_days
+    ((period_start..period_end).to_a - days_off).length
+  end
+end
+  </code>
+</pre>
+    </section>
+
+    <section>
+      <h2>RBS in action</h2>
+
+      <small>
+        Your declaration file.
+      </small>
+
+      <pre>
+  <code class="language-ruby" data-trim>
+# working_day_calculator.rbs
+
+class WorkingDayCalculator
+  attr_accessor period_start: Date
+  attr_accessor period_end: Date
+  attr_reader days_off: Array[Date]
+  def initialize: -> void
+  def add_day_off: (Date date) -> Array[Date]
+  def calculate_working_days: -> untyped
+end
+  </code>
+</pre>
+    </section>
+
+    <section>
+      <h2>RBS in action</h2>
+
+      <small>
+        Steep is a Static type checker for Ruby.
+      </small>
+
+      <pre>
+  <code class="language-shell" data-trim>
+# Type checking files:
+
+....................................................................................F
+
+working_day_calculator_test.rb:13:17: [error] Cannot pass a value of type `::String` as an argument of type `::Date`
+│   ::String <: ::Date
+│     ::Object <: ::Date
+│       ::BasicObject <: ::Date
+│
+│ Diagnostic ID: Ruby::ArgumentTypeMismatch
+│
+└ calc.add_day_off('BOOM')
+                   ~~~~~~~~~~
+
+Detected 1 problem from 1 file
+  </code>
+</pre>
+    </section>
+
+    <section>
+      <h2>RBS inline</h2>
+
+      <p>
+        <a href="https://github.com/soutaro/rbs-inline" target="_blank">
+          https://github.com/soutaro/rbs-inline
+        </a>
+      </p>
+
+      <pre>
+  <code class="language-ruby" data-trim>
+# rbs_inline: enabled
+
+class Person
+  attr_reader :name #: String
+
+  attr_reader :addresses #: Array[String]
+
+  # @rbs name: String
+  # @rbs addresses: Array[String]
+  # @rbs return: void
+  def initialize(name:, addresses:)
+    @name = name
+    @addresses = addresses
+  end
+
+  def to_s #: String
+    "Person(name = #{name}, addresses = #{addresses.join(", ")})"
+  end
+
+  # @rbs &block: (String) -> void
+  def each_address(&block) #:: void
+    addresses.each(&block)
+  end
+end
+  </code>
+</pre>
+    </section>
+
+    <section>
+      <h2>Sorbet 🍦 by Stripe</h2>
+
+      <small>
+        Steep is a Static type checker for Ruby.
+      </small>
+
+      <p>
+        <a href="https://sorbet.run/" target="_blank">
+          👉 Try it!
+        </a>
+      </p>
+    </section>
 
     <section>
       <figure class="mb-4">
