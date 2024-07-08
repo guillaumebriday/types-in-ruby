@@ -25,6 +25,10 @@
   align-items: center;
 }
 
+.gap-4 {
+  gap: 1rem;
+}
+
 .mb-4 {
   margin-bottom: 1.5rem;
 }

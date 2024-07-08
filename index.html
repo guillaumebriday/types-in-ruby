@@ -40,6 +40,35 @@
     </section>
 
     <section>
+      <h2>Why types are cool?</h2>
+
+      <ul class="list-point-right">
+        <li class="fragment">Better IDE integration</li>
+        <li class="fragment">Give information to other developers</li>
+        <li class="fragment">Can find bugs during development</li>
+        <li class="fragment">etc.</li>
+      </ul>
+
+      <p class="fragment">
+        <a href="https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html" target="_blank">
+          👉 TypeScript in 5 minutes
+        </a>
+      </p>
+    </section>
+
+    <section>
+      <h2>Why types are cool?</h2>
+
+      <p>
+        <a
+        target="_blank"
+        href="https://www.typescriptlang.org/play/?#code/C4TwDgpgBAygrgMwQSwB4BVzQLxQEQA2yAdhAIYBOeUAPvgLYD2xwAFgSNXXiORR3gBQghHGIBjYMmZQA5hGAAFCsnHQAFAGdEKVAC5YOtJkgBKA8Tj0ARhApQA3oKhRkCKFqOoo2X-iKklHimjs4uUBQKcBTEUACcAHRxcWEAvlAQBJrQbh7aSGg+fnhMLOycIU7hEVExUAAcSSkuqcIukcDRsQCMicmCrcLizJqMBBAJBIyy6vJKKmrqhCR8waZAA">
+          👉 Try it!
+        </a>
+      </p>
+    </section>
+
+    <section>
       <h2>Typesception</h2>
 
       <p>
@@ -153,7 +182,7 @@ speak(new Cat); ❌ Uncaught TypeError: speak(): Argument #1 ($animal) must be o
       <h2>Structural typing</h2>
 
       <small class="fragment">
-        Type is defined by its name.
+        Type is defined by its structure.
       </small>
 
       <pre class="fragment">
@@ -164,8 +193,10 @@ class Dog {
   }
 }
 
-class Cat {
-  ...
+const Cat = {
+  speak () {
+    return 'miaou'
+  }
 }
 
 function speak (animal: Dog) {
@@ -173,7 +204,194 @@ function speak (animal: Dog) {
 }
 
 speak(new Dog) ✅ //=> "whoaf"
-speak(new Cat) ✅ //=> "miaou"
+speak(Cat) ✅ //=> "miaou"
+  </code>
+</pre>
+
+      <p class="fragment">
+        <a
+        target="_blank"
+        href="https://www.typescriptlang.org/play/?#code/MYGwhgzhAEAiD2BzaBvAUNaEAOBTMA1tABQCUqGm0ATrgC4Cu1AdtAOQDuAFvGAGZtKAXzQi0weMwh1oAYTAyAvBUw58RMiqq1GLdgFsAlmHgNBmEWL4NmwOoclY8hEmGaH9YEAC44ScuiYElLwILgAdCBIxG4eXuFqhGSkomhoiQTEzLgcfojk6c6Z8nSkQA">
+          👉 Try it!
+        </a>
+      </p>
+    </section>
+
+    <section>
+      <h2>Gradual typing</h2>
+
+      <small class="fragment">
+        Best of both worlds.
+      </small>
+
+      <ul class="list-point-right">
+        <li class="fragment">Gradually add static typing to dynamic languages</li>
+        <li class="fragment">Types are checked by linters</li>
+        <li class="fragment">Types are reported at runtime</li>
+        <li class="fragment">Nominal or Structural</li>
+      </ul>
+
+      <p class="fragment">
+        <a href="https://www.typescriptlang.org/play/?#code/GYVwdgxgLglg9mABAQwCaoBTIFyLCAWwCMBTAJwBpEjd9jyBKRAbwChFEySoQyllEAamqsAvq1YQEAZzgAbEgDo5cAOZZ0GAExUAzAwZA" target="_blank">
+          👉 Playground
+        </a>
+      </p>
+
+      <aside class="notes">
+        <ul>
+          <li>PHP, TypeScript, Python, etc</li>
+          <li>TypeScript is transpiled, not compiled</li>
+          <li>See types.php as example</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section>
+      <h2>What about Ruby? 💎</h2>
+
+      <small class="fragment">
+        It's all about Duck Typing.
+      </small>
+
+
+      <div class="d-flex align-items-center gap-4">
+        <blockquote class="fragment">
+          "If it walks like a duck, and it quacks like a duck, then it must be a duck"
+        </blockquote>
+
+        <img src="img/duck-typing.jpg" alt="Duck typing" width="400">
+      </div>
+    </section>
+
+    <section>
+      <h2>What about Ruby? 💎</h2>
+
+      <p>
+        Duck typing is about defining objects by <strong>what they do</strong> instead of <strong>who they are</strong>.
+      </p>
+
+      <aside class="notes">
+        <ul>
+          <li>Show interface in types.php example</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section>
+      <h2>Duck typing in real life 🦆</h2>
+
+      <pre>
+  <code class="language-ruby" data-trim>
+class Trip
+  def prepare(preparers)
+    preparers.each do |preparer|
+      case preparer
+      when Mechanic then preparer.prepare_bicycles(bicycles)
+      when TripCoordinator then preparer.buy_food(customers)
+      when Driver
+        preparer.gas_up(vehicle)
+        preparer.fill_water_tank(vehicle)
+      end
+    end
+  end
+end
+
+class Mechanic
+  def prepare_bicycles(bicycles)
+    #...
+  end
+end
+
+class TripCoordinator
+  def buy_food(customers)
+    # ...
+  end
+end
+
+class Driver
+  def gas_up(vehicle)
+    #...
+  end
+
+  def fill_water_tank(vehicle)
+    #...
+  end
+end
+  </code>
+</pre>
+    </section>
+
+    <section>
+      <h2>Duck typing in real life 🦆</h2>
+
+      <pre>
+  <code class="language-ruby" data-trim>
+class Trip
+  def prepare(preparers)
+    preparers.each do |preparer|
+      preparer.prepare_trip(self)
+    end
+  end
+end
+
+# when every preparer is a Duck that responds to ‘prepare_trip’
+class Mechanic
+  def prepare_trip(trip)
+    prepare_bicycles(trip.bicycles)
+  end
+end
+
+class TripCoordinator
+  def prepare_trip(trip)
+    buy_food(trip.customers)
+  end
+end
+
+class Driver
+  def prepare_trip(trip)
+    gas_up(trip.vehicle)
+
+    fill_water_tank(trip.vehicle)
+  end
+end
+  </code>
+</pre>
+    </section>
+
+    <section>
+      <h2>Duck typing in real life 🦆</h2>
+
+      <p>
+        Enforce with modules
+      </p>
+
+      <pre class="fragment">
+  <code class="language-ruby" data-trim>
+module Preparer
+  def prepare_trip(trip)
+    raise "Not implemented"
+  end
+end
+
+class Trip
+  def prepare(preparers)
+    preparers.each do |preparer|
+      preparer.prepare_trip(self)
+    end
+  end
+end
+
+class Mechanic
+  include Preparer
+end
+
+class TripCoordinator
+  include Preparer
+end
+
+class Driver
+  include Preparer
+end
   </code>
 </pre>
     </section>
@@ -237,13 +455,13 @@ speak(new Cat) ✅ //=> "miaou"
 </html>
 
 
-<!--https://brandur.org/fragments/ruby-typing-2024-->
-<!--https://github.com/soutaro/steep-->
-<!--https://blog.appsignal.com/2021/01/27/rbs-the-new-ruby-3-typing-language-in-action.html-->
-<!--https://morningcoffee.io/interfaces-in-ruby.html-->
-<!--https://phptoruby.io/advanced/type_hinting_and_duck_typing/-->
-<!--https://thephp.website/en/issue/php-type-system/-->
-<!--https://github.com/soutaro/rbs-inline-->
+<!-- https://brandur.org/fragments/ruby-typing-2024 -->
+<!-- https://github.com/soutaro/steep -->
+<!-- https://blog.appsignal.com/2021/01/27/rbs-the-new-ruby-3-typing-language-in-action.html -->
+<!-- https://morningcoffee.io/interfaces-in-ruby.html -->
+<!-- https://phptoruby.io/advanced/type_hinting_and_duck_typing/ -->
+<!-- https://thephp.website/en/issue/php-type-system/ -->
+<!-- https://github.com/soutaro/rbs-inline -->
 <!-- https://www.rubyfleebie.com/2007/07/09/ruby-is-dynamically-and-strongly-typed/ -->
 <!-- https://cek.io/blog/2014/05/02/poodr-ch-5/ -->
 <!-- https://johnewart.net/2014/interfaces-in-ruby/ -->
